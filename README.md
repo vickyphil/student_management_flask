@@ -1,6 +1,6 @@
-# Student Management System — Flask + PostgreSQL
+# Student Management System - Flask + PostgreSQL
 
-This is the complete native replacement of the supplied Base44/React application.
+A self-contained student management system with a Flask backend, PostgreSQL database, and vanilla HTML, CSS, and JavaScript frontend.
 
 ## Required stack
 
@@ -9,28 +9,14 @@ This is the complete native replacement of the supplied Base44/React application
 - Database: SQL + PostgreSQL
 - Data science: NumPy + Pandas + scikit-learn
 
-## What changed
+## Features
 
-The supplied project was a React/Vite application whose data and authentication were provided by Base44. The source contained `base44.entities.*` calls for students, results, attendance, payments, admissions and accommodation, and `base44.auth.*` calls for login, registration, OTP and password reset. It also used Base44's Vite plugin and platform-specific MCP OAuth consent flow.
-
-Those pieces are removed here.
-
-### Replacement mapping
-
-| Original Base44 responsibility | Native replacement |
-|---|---|
-| Entity definitions | PostgreSQL tables in `database/schema.sql` |
-| Entity list/filter/get | Flask JSON API + SQL queries |
-| Authentication/session | Flask signed session + PostgreSQL `users` |
-| Password hashing | Werkzeug password hashing |
-| Registration OTP | Flask-generated OTP + optional SMTP |
-| Password reset | PostgreSQL hashed reset token + optional SMTP |
-| Audit logging | PostgreSQL `audit_logs` |
-| GPA/grade/attendance/fee calculations | Python backend |
-| Browser UI | Vanilla HTML/CSS/JavaScript |
-| Browser routing | Hash routing in `frontend/app.js` |
-| Analytics placeholder | NumPy/Pandas/scikit-learn risk analysis |
-| Base44 MCP OAuth consent | Removed; it was platform-specific and unrelated to normal student-management operation |
+- Flask JSON API with signed-session authentication
+- PostgreSQL storage for students, courses, results, attendance, payments, admissions, accommodation, and audit logs
+- Password hashing, email verification, and password reset support
+- GPA, grade, attendance, payment, and risk calculations
+- Analytics powered by NumPy, Pandas, and scikit-learn
+- Vanilla browser interface with hash-based routing
 
 ## Setup
 
@@ -73,11 +59,9 @@ Derived fields are deliberately not duplicated as editable columns:
 - payment balance is amount due − amount paid;
 - payment status is derived when a payment is recorded.
 
-## Notes on the original missing pieces
+## Documents
 
-The supplied notepad referenced several files that were not actually included in it, including the original `Layout`, `AuthLayout`, `ProtectedRoute`, `StatCard`, `base44Client`, and several UI components. The original routes also left Courses, Results, Finance, Analytics, Audit and Settings as placeholders. This replacement therefore creates the required native shell, authentication, dashboard, students, courses, analytics and audit views rather than leaving those gaps as stubs.
-
-The original Documents tab only called `window.print()` and explicitly said server-side PDF generation was future work. This version retains a print/save-as-PDF workflow without depending on Base44.
+The documents view supports the browser print dialog and save-as-PDF workflow without requiring a separate document service.
 
 ## Security
 
